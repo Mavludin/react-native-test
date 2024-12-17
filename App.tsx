@@ -5,11 +5,9 @@
  * @format
  */
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import type {PropsWithChildren} from 'react';
 import {
-  NativeEventEmitter,
-  NativeModules,
   Pressable,
   SafeAreaView,
   ScrollView,
@@ -28,9 +26,9 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-const { BroadcastSender } = NativeModules;
+import { BroadcastController } from './BroadcastController';
+import { useBroadcast } from './useBroadcast';
 
-const eventEmitter = new NativeEventEmitter();
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -39,20 +37,8 @@ type SectionProps = PropsWithChildren<{
 function Section({children, title}: SectionProps): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
-  useEffect(() => {
-    const subscription = eventEmitter.addListener('onRequestReceived', (request111) => {
-
-      console.log({ request111 });
-    });
-
-    return () => subscription.remove();
-  }, []);
-
   return (
     <View style={styles.sectionContainer}>
-      <Pressable onPress={() => BroadcastSender.sendBroadcast('data is sent')}>
-        <Text>Send data</Text>
-      </Pressable>
       <Text
         style={[
           styles.sectionTitle,
@@ -82,12 +68,19 @@ function App(): React.JSX.Element {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  const { sendBroadcast } = useBroadcast();
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
+
+      <Pressable onPress={() => sendBroadcast({ test: 'test data' })}>
+        <Text>Send data</Text>
+      </Pressable>
+
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
@@ -112,6 +105,8 @@ function App(): React.JSX.Element {
           <LearnMoreLinks />
         </View>
       </ScrollView>
+
+      <BroadcastController />
     </SafeAreaView>
   );
 }
