@@ -5,9 +5,12 @@
  * @format
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import type {PropsWithChildren} from 'react';
 import {
+  NativeEventEmitter,
+  NativeModules,
+  Pressable,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -25,14 +28,31 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+const { BroadcastSender } = NativeModules;
+
+const eventEmitter = new NativeEventEmitter();
+
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
 
 function Section({children, title}: SectionProps): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
+
+  useEffect(() => {
+    const subscription = eventEmitter.addListener('onRequestReceived', (request111) => {
+
+      console.log({ request111 });
+    });
+
+    return () => subscription.remove();
+  }, []);
+
   return (
     <View style={styles.sectionContainer}>
+      <Pressable onPress={() => BroadcastSender.sendBroadcast('data is sent')}>
+        <Text>Send data</Text>
+      </Pressable>
       <Text
         style={[
           styles.sectionTitle,
