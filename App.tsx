@@ -26,7 +26,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import { BroadcastController } from './BroadcastController';
+// import { BroadcastController } from './BroadcastController';
 import { useBroadcast } from './useBroadcast';
 import { MyModal } from './MyModal';
 import { PaperProvider } from 'react-native-paper';
@@ -124,7 +124,7 @@ function App(): React.JSX.Element {
           }}
         />
 
-        <BroadcastController />
+        {/* <BroadcastController /> */}
       </SafeAreaView>
     </PaperProvider>
   );
