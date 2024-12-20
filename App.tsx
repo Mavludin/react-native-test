@@ -74,7 +74,7 @@ function App(): React.JSX.Element {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    AppRegistry.registerHeadlessTask('dataRequest', () => async (data: string) => {
+    AppRegistry.registerHeadlessTask('DataRequest', () => async (data: string) => {
       console.log('request received', JSON.parse(data));
 
       setShowModal(true);

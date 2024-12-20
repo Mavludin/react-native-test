@@ -20,8 +20,7 @@ class CustomBroadcastReceiver: BroadcastReceiver() {
     val data = intent?.getStringExtra("data") ?: "default_data"
 
     if (action == "com.test.SEND_DATA_REQUEST") {
-      Log.d("CustomBroadcastReceiver", "onReceive")
-      Log.d("CustomBroadcastReceiver", data)
+      Log.d("CustomBroadcastReceiver", "Received broadcast with action: $action and data: $data")
 
       val service = Intent(context, MyTaskService::class.java)
       val bundle = Bundle()
