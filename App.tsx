@@ -117,7 +117,11 @@ function App(): React.JSX.Element {
         <MyModal
           visible={showModal}
           onCancel={() => setShowModal(false)}
-          onConfirm={() => sendBroadcast({ test: 'test data' })}
+          onConfirm={() => {
+            sendBroadcast({ test: 'test data' });
+
+            setShowModal(false);
+          }}
         />
 
         <BroadcastController />
