@@ -5,10 +5,9 @@
  * @format
  */
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import type {PropsWithChildren} from 'react';
 import {
-  AppRegistry,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -26,10 +25,8 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-// import { BroadcastController } from './BroadcastController';
-import { useBroadcast } from './useBroadcast';
-import { MyModal } from './MyModal';
 import { PaperProvider } from 'react-native-paper';
+import { BroadcastController } from './BroadcastController';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -69,18 +66,6 @@ function App(): React.JSX.Element {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
-  const { sendBroadcast } = useBroadcast();
-
-  const [showModal, setShowModal] = useState(false);
-
-  useEffect(() => {
-    AppRegistry.registerHeadlessTask('DataRequest', () => async (data: string) => {
-      console.log('request received', JSON.parse(data));
-
-      setShowModal(true);
-    });
-  }, []);
-
   return (
     <PaperProvider>
       <SafeAreaView style={backgroundStyle}>
@@ -114,17 +99,7 @@ function App(): React.JSX.Element {
           </View>
         </ScrollView>
 
-        <MyModal
-          visible={showModal}
-          onCancel={() => setShowModal(false)}
-          onConfirm={() => {
-            sendBroadcast({ test: 'test data' });
-
-            setShowModal(false);
-          }}
-        />
-
-        {/* <BroadcastController /> */}
+        <BroadcastController />
       </SafeAreaView>
     </PaperProvider>
   );
