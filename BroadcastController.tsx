@@ -1,16 +1,14 @@
 import React, { useEffect } from 'react';
 
-import { NativeEventEmitter } from 'react-native';
-
-const eventEmitter = new NativeEventEmitter();
+import { AppRegistry } from 'react-native';
 
 export const BroadcastController = React.memo(() => {
   useEffect(() => {
-    const subscription = eventEmitter.addListener('onRequestReceived', (requestData) => {
-      console.log({ requestData });
-    });
+    AppRegistry.registerHeadlessTask('dataRequest', () => async (data: string) => {
+      console.log('request received', JSON.parse(data));
 
-    return () => subscription.remove();
+      // Here we automatically send data if needed
+    });
   }, []);
 
   return null;

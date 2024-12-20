@@ -12,7 +12,7 @@ class MyTaskService : HeadlessJsTaskService() {
 
     return intent.extras?.let {
       HeadlessJsTaskConfig(
-        "SomeTaskName",
+        "dataRequest",
         Arguments.fromBundle(it),
         5000, // timeout for the task
         true // optional: defines whether or not the task is allowed in foreground.

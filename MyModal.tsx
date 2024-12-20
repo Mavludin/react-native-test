@@ -4,14 +4,15 @@ import { Modal } from 'react-native-paper';
 
 type Props = {
   visible: boolean
-  hideModal: () => void
+  onCancel: () => void
+  onConfirm: () => void
 }
 
-export const MyModal = ({ visible, hideModal }: Props) => {
+export const MyModal = ({ visible, onCancel, onConfirm }: Props) => {
   return (
     <Modal
       visible={visible}
-      onDismiss={hideModal}
+      onDismiss={onCancel}
       contentContainerStyle={styles.contentContainerStyle}
     >
       <View style={styles.header}>
@@ -20,10 +21,16 @@ export const MyModal = ({ visible, hideModal }: Props) => {
       </View>
 
       <View style={styles.buttons}>
-        <TouchableOpacity style={styles.buttonOk}>
+        <TouchableOpacity
+          onPress={onConfirm}
+          style={styles.buttonOk}
+        >
           <Text>Send</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonCancel}>
+        <TouchableOpacity
+          onPress={onCancel}
+          style={styles.buttonCancel}
+        >
           <Text>Cancel</Text>
         </TouchableOpacity>
       </View>

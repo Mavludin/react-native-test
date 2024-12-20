@@ -9,7 +9,6 @@ import React, { useEffect, useState } from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   AppRegistry,
-  Pressable,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -75,7 +74,9 @@ function App(): React.JSX.Element {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    AppRegistry.registerHeadlessTask('SomeTaskName', () => async (data: unknown) => {
+    AppRegistry.registerHeadlessTask('dataRequest', () => async (data: string) => {
+      console.log('request received', JSON.parse(data));
+
       setShowModal(true);
     });
   }, []);
@@ -87,10 +88,6 @@ function App(): React.JSX.Element {
           barStyle={isDarkMode ? 'light-content' : 'dark-content'}
           backgroundColor={backgroundStyle.backgroundColor}
         />
-
-        <Pressable onPress={() => sendBroadcast({ test: 'test data' })}>
-          <Text>Send data</Text>
-        </Pressable>
 
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
@@ -119,7 +116,8 @@ function App(): React.JSX.Element {
 
         <MyModal
           visible={showModal}
-          hideModal={() => setShowModal(false)}
+          onCancel={() => setShowModal(false)}
+          onConfirm={() => sendBroadcast({ test: 'test data' })}
         />
 
         <BroadcastController />
