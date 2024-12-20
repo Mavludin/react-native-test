@@ -1,6 +1,7 @@
 package com.test
 
 import android.os.Bundle
+import android.content.Context
 import com.facebook.react.ReactActivity
 import com.facebook.react.bridge.ReactContext
 import com.facebook.react.ReactInstanceManager
@@ -36,7 +37,7 @@ class MainActivity : ReactActivity() {
     super.onCreate(savedInstanceState)
 
     val intentFilter = IntentFilter("com.test.SEND_DATA_REQUEST")
-    registerReceiver(broadcastReceiver, intentFilter)
+    registerReceiver(broadcastReceiver, intentFilter, Context.RECEIVER_EXPORTED)
   }
 
   override fun onDestroy() {
