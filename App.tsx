@@ -5,9 +5,10 @@
  * @format
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import type {PropsWithChildren} from 'react';
 import {
+  AppRegistry,
   Pressable,
   SafeAreaView,
   ScrollView,
@@ -28,7 +29,8 @@ import {
 
 import { BroadcastController } from './BroadcastController';
 import { useBroadcast } from './useBroadcast';
-
+import { MyModal } from './MyModal';
+import { PaperProvider } from 'react-native-paper';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -70,44 +72,59 @@ function App(): React.JSX.Element {
 
   const { sendBroadcast } = useBroadcast();
 
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    AppRegistry.registerHeadlessTask('SomeTaskName', () => async (data: unknown) => {
+      setShowModal(true);
+    });
+  }, []);
+
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
+    <PaperProvider>
+      <SafeAreaView style={backgroundStyle}>
+        <StatusBar
+          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+          backgroundColor={backgroundStyle.backgroundColor}
+        />
 
-      <Pressable onPress={() => sendBroadcast({ test: 'test data' })}>
-        <Text>Send data</Text>
-      </Pressable>
+        <Pressable onPress={() => sendBroadcast({ test: 'test data' })}>
+          <Text>Send data</Text>
+        </Pressable>
 
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
+        <ScrollView
+          contentInsetAdjustmentBehavior="automatic"
+          style={backgroundStyle}>
+          <Header />
+          <View
+            style={{
+              backgroundColor: isDarkMode ? Colors.black : Colors.white,
+            }}>
+            <Section title="Step One">
+              Edit <Text style={styles.highlight}>App.tsx</Text> to change this
+              screen and then come back to see your edits.
+            </Section>
+            <Section title="See Your Changes">
+              <ReloadInstructions />
+            </Section>
+            <Section title="Debug">
+              <DebugInstructions />
+            </Section>
+            <Section title="Learn More">
+              Read the docs to discover what to do next:
+            </Section>
+            <LearnMoreLinks />
+          </View>
+        </ScrollView>
 
-      <BroadcastController />
-    </SafeAreaView>
+        <MyModal
+          visible={showModal}
+          hideModal={() => setShowModal(false)}
+        />
+
+        <BroadcastController />
+      </SafeAreaView>
+    </PaperProvider>
   );
 }
 

@@ -17,6 +17,8 @@ import com.test.CustomBroadcastReceiver
 
 class MainActivity : ReactActivity() {
 
+  private val broadcastReceiver = CustomBroadcastReceiver()
+
   /**
    * Returns the name of the main component registered from JavaScript. This is used to schedule
    * rendering of the component.
@@ -33,54 +35,13 @@ class MainActivity : ReactActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    // Лог перед добавлением слушателя
-    Log.d("MainActivity", "Adding ReactInstanceEventListener")
-
-    val reactInstanceManager = reactNativeHost.reactInstanceManager
-
-    reactInstanceManager.addReactInstanceEventListener(object : ReactInstanceManager.ReactInstanceEventListener {
-      override fun onReactContextInitialized(reactContext: ReactContext) {
-        Log.d("MainActivity", "ReactContext Initialized")
-
-        handleReactContext(reactContext)
-      }
-    })
-
-    // Лог перед проверкой существующего контекста
-    Log.d("MainActivity", "Checking if ReactContext has started creating")
-
-    // Если контекст уже существует, сразу используем его
-    if (reactInstanceManager.hasStartedCreatingInitialContext()) {
-      Log.d("MainActivity", "ReactContext already initialized")
-
-      reactInstanceManager.currentReactContext?.let {
-        handleReactContext(it)
-      }
-    }
-  }
-
-  private fun handleReactContext(reactContext: ReactContext) {
-    if (reactContext == null) {
-      Log.d("MainActivity", "ReactContext is null in handleReactContext")
-      
-      return
-    }
-
-    if (reactContext is ReactApplicationContext) {
-      CustomBroadcastReceiver.reactContext = reactContext
-
-      val intentFilter = IntentFilter("com.test.SEND_DATA_REQUEST")
-      registerReceiver(CustomBroadcastReceiver(), intentFilter)
-  
-      Log.d("MainActivity", "ReactContext assigned to CustomBroadcastReceiver")
-    } else {
-      Log.d("MainActivity", "ReactContext is not ReactApplicationContext")
-    }
+    val intentFilter = IntentFilter("com.test.SEND_DATA_REQUEST")
+    registerReceiver(broadcastReceiver, intentFilter)
   }
 
   override fun onDestroy() {
     super.onDestroy()
 
-    unregisterReceiver(CustomBroadcastReceiver())
+    unregisterReceiver(broadcastReceiver)
   }
 }

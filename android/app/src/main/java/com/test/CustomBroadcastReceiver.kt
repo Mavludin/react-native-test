@@ -2,6 +2,7 @@ package com.test
 
 import android.content.BroadcastReceiver
 import android.content.Context
+import android.os.Bundle
 import android.content.Intent
 
 import com.facebook.react.bridge.ReactContext
@@ -9,46 +10,29 @@ import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.modules.core.DeviceEventManagerModule
 
+import com.facebook.react.HeadlessJsTaskService
+
 import android.util.Log
 
 class CustomBroadcastReceiver: BroadcastReceiver() {
-  companion object {
-    var reactContext: ReactApplicationContext? = null
-  }
-
   override fun onReceive(context: Context, intent: Intent) {
     val action = intent.action
-    val data = intent.getStringExtra("data")
+    val data = intent?.getStringExtra("data") ?: "default_data"
 
-    // data request
     if (action == "com.test.SEND_DATA_REQUEST") {
-      Log.d("CustomBroadcastReceiver", "Received broadcast with action: $action and data: $data")
+      Log.d("CustomBroadcastReceiver", "onReceive")
+      Log.d("CustomBroadcastReceiver", data)
 
-      val reactContext = Companion.reactContext
+      val service = Intent(context, MyTaskService::class.java)
+      val bundle = Bundle()
 
-      if (reactContext == null) {
-        Log.d("CustomBroadcastReceiver", "ReactContext is null, cannot send event.")
-        
-        return
-      }
+      bundle.putString("data", data)
 
-      if (!reactContext.hasActiveCatalystInstance()) {
-        Log.d("CustomBroadcastReceiver", "React Native is not ready yet.")
-        
-        return
-      }
+      service.putExtras(bundle)
 
-      sendEvent(reactContext, "onRequestReceived", data)
-    } else {
-      Log.d("CustomBroadcastReceiver", "Received unknown broadcast with action: $action")
+      context.startService(service)
+
+      HeadlessJsTaskService.acquireWakeLockNow(context)
     }
-  }
-
-  private fun sendEvent(reactContext: ReactApplicationContext, eventName: String, data: String?) {
-    Log.d("CustomBroadcastReceiver", "Worked!")
-
-    reactContext
-      .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
-      .emit(eventName, data)
   }
 }
