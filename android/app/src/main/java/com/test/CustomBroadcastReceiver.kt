@@ -3,12 +3,8 @@ package com.test
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.os.Bundle
+import android.os.Build
 import android.content.Intent
-
-import com.facebook.react.bridge.ReactContext
-import com.facebook.react.bridge.ReactApplicationContext
-import com.facebook.react.bridge.ReactContextBaseJavaModule
-import com.facebook.react.modules.core.DeviceEventManagerModule
 
 import com.facebook.react.HeadlessJsTaskService
 
@@ -29,7 +25,11 @@ class CustomBroadcastReceiver: BroadcastReceiver() {
 
       service.putExtras(bundle)
 
-      context.startService(service)
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        context.startForegroundService(service)
+      } else {
+        context.startService(service)
+      }
 
       HeadlessJsTaskService.acquireWakeLockNow(context)
     }
