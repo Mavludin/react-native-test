@@ -5,7 +5,7 @@
  * @format
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
@@ -17,6 +17,9 @@ import {
   View,
 } from 'react-native';
 
+import { Provider as ReduxProvider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+
 import {
   Colors,
   DebugInstructions,
@@ -27,6 +30,9 @@ import {
 
 import { PaperProvider } from 'react-native-paper';
 import { BroadcastController } from './BroadcastController';
+
+import { persistor, store } from './store';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -66,42 +72,60 @@ function App(): React.JSX.Element {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  useEffect(() => {
+    const getData = async () => {
+      const storeString = await AsyncStorage.getItem('persist:root');
+
+      if (storeString === null) return
+
+      const data = JSON.parse(storeString);
+
+      console.log({ storeString: JSON.parse(data.test) });
+    };
+
+    getData();
+  }, []);
+
   return (
-    <PaperProvider>
-      <SafeAreaView style={backgroundStyle}>
-        <StatusBar
-          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-          backgroundColor={backgroundStyle.backgroundColor}
-        />
+    <ReduxProvider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <PaperProvider>
+          <SafeAreaView style={backgroundStyle}>
+            <StatusBar
+              barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+              backgroundColor={backgroundStyle.backgroundColor}
+            />
 
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={backgroundStyle}>
-          <Header />
-          <View
-            style={{
-              backgroundColor: isDarkMode ? Colors.black : Colors.white,
-            }}>
-            <Section title="Step One">
-              Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-              screen and then come back to see your edits.
-            </Section>
-            <Section title="See Your Changes">
-              <ReloadInstructions />
-            </Section>
-            <Section title="Debug">
-              <DebugInstructions />
-            </Section>
-            <Section title="Learn More">
-              Read the docs to discover what to do next:
-            </Section>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
+            <ScrollView
+              contentInsetAdjustmentBehavior="automatic"
+              style={backgroundStyle}>
+              <Header />
+              <View
+                style={{
+                  backgroundColor: isDarkMode ? Colors.black : Colors.white,
+                }}>
+                <Section title="Step One">
+                  Edit <Text style={styles.highlight}>App.tsx</Text> to change this
+                  screen and then come back to see your edits.
+                </Section>
+                <Section title="See Your Changes">
+                  <ReloadInstructions />
+                </Section>
+                <Section title="Debug">
+                  <DebugInstructions />
+                </Section>
+                <Section title="Learn More">
+                  Read the docs to discover what to do next:
+                </Section>
+                <LearnMoreLinks />
+              </View>
+            </ScrollView>
 
-        <BroadcastController />
-      </SafeAreaView>
-    </PaperProvider>
+            <BroadcastController />
+          </SafeAreaView>
+        </PaperProvider>
+      </PersistGate>
+    </ReduxProvider>
   );
 }
 
