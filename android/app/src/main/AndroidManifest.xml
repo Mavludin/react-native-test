@@ -26,16 +26,15 @@
         </intent-filter>
       </activity>
 
-      <receiver android:name=".CustomBroadcastReceiver" android:exported="true">
+      <receiver
+        android:name=".CustomBroadcastReceiver"
+        android:exported="true"
+        android:enabled="true"
+      >
         <intent-filter>
           <action android:name="com.test.SEND_DATA_REQUEST" />
         </intent-filter>
       </receiver>
-
-      <service
-        android:name=".MyTaskService"
-        android:foregroundServiceType="dataSync"
-      />
       
     </application>
 </manifest>
