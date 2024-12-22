@@ -29,7 +29,6 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import { PaperProvider } from 'react-native-paper';
-import { BroadcastController } from './BroadcastController';
 
 import { persistor, store } from './store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -121,7 +120,6 @@ function App(): React.JSX.Element {
               </View>
             </ScrollView>
 
-            <BroadcastController />
           </SafeAreaView>
         </PaperProvider>
       </PersistGate>
