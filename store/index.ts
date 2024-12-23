@@ -15,17 +15,19 @@ import {
 
 import test from './test';
 import shifts from './shifts';
+import income from './income';
 
 // Persist Config
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['test', 'shifts'],
+  whitelist: ['test', 'shifts', 'income'],
 };
 
 export const rootReducer = combineReducers({
-  test,
+  income,
   shifts,
+  test,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
