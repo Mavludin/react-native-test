@@ -14,16 +14,18 @@ import {
 } from 'redux-persist';
 
 import test from './test';
+import shifts from './shifts';
 
 // Persist Config
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['test'],
+  whitelist: ['test', 'shifts'],
 };
 
 export const rootReducer = combineReducers({
   test,
+  shifts,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
