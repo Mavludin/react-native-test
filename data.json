@@ -1,0 +1,249 @@
+{
+  "localization": {
+    "language": "en"
+  },
+  "settings": {
+    "theme": "default",
+    "weekNumbers": "none",
+    "firstDayOfWeek": 7,
+    "aspectRatioMultiplier": 1,
+    "country": "US",
+    "region": null,
+    "prepare": true,
+    "showShiftTitle": 1,
+    "showShiftTitleIfNoDuration": false,
+    "showShiftDuration": false,
+    "lastError": null
+  },
+  "localSettings": {
+    "lastError": null,
+    "abTestValue": 79,
+    "amountOfShifts": 0,
+    "limitShiftsNotificationShown": false
+  },
+  "mode": {
+    "perLine": 1,
+    "edit": false
+  },
+  "date": {
+    "focusDateTime": null,
+    "day": "2024-12-17",
+    "month": "2024-12-01T00:00:00.000+03:00",
+    "year": 2024
+  },
+  "events": {
+    "all": {}
+  },
+  "colors": {
+    "events": [],
+    "calendars": []
+  },
+  "calendars": {
+    "list": [],
+    "checked": {},
+    "sourcesChecked": {}
+  },
+  "snaps": {
+    "mode": "workShift",
+    "subMode": "statistic",
+    "index": 0,
+    "noteFilter": "withTime"
+  },
+  "rate": {
+    "counter": 0,
+    "timer": 466,
+    "rating": 0,
+    "rated": false
+  },
+  "survey": {
+    "shownNumber": 0,
+    "done": false,
+    "rejected": false,
+    "timer": 0
+  },
+  "time": {
+    "dateTime": "2024-12-24T13:08:22.600+03:00",
+    "localDateISO": "2024-12-24",
+    "localTimeISO": "2024-12-24T13:08:22.600+03:00"
+  },
+  "applications": {
+    "events": false,
+    "notes": true,
+    "workShift": true,
+    "workTime": false
+  },
+  "workShift": {
+    "active": 0,
+    "list": [
+      {
+        "shift": {
+          "array": [
+            2,
+            3,
+            3,
+            3
+          ],
+          "options": {
+            "useNotWorkingDays": false
+          }
+        },
+        "start": "2024-12-02",
+        "end": null,
+        "title": "",
+        "income": {
+          "period": "month"
+        },
+        "hash": {
+          "2024-12-17": 2,
+          "2024-12-01": 2
+        },
+        "overtime": {
+          "2024-12-17": {
+            "time": 30,
+            "income": 0
+          }
+        },
+        "manualOnly": false,
+        "reminders": null,
+        "alarm": true
+      },
+      {
+        "shift": {
+          "array": [
+            2,
+            3,
+            3,
+            3
+          ],
+          "options": {
+            "useNotWorkingDays": false
+          }
+        },
+        "start": null,
+        "end": null,
+        "title": "",
+        "income": {
+          "period": "month"
+        },
+        "hash": {},
+        "overtime": {},
+        "manualOnly": false,
+        "reminders": null,
+        "alarm": true,
+        "viewable": false
+      }
+    ]
+  },
+  "overtime": {},
+  "userShifts": {
+    "list": [
+      {
+        "id": 0,
+        "hidden": true,
+        "title": "Work",
+        "color": "#c8e6c9",
+        "workTime": 480
+      },
+      {
+        "id": 1,
+        "hidden": true,
+        "title": "Day Off",
+        "color": "transparent",
+        "workTime": 0
+      },
+      {
+        "id": 2,
+        "title": "Work1",
+        "color": "#c8e6c9",
+        "workTime": 480,
+        "isHashShift": true
+      },
+      {
+        "id": 3,
+        "title": "Day Off",
+        "color": "transparent",
+        "workTime": 0
+      },
+      {
+        "id": 4,
+        "title": "Morning",
+        "color": "#ffe0b2",
+        "workTime": 480
+      },
+      {
+        "id": 5,
+        "title": "Day",
+        "color": "#b2dfdb",
+        "workTime": 480
+      },
+      {
+        "id": 6,
+        "title": "Evening",
+        "color": "#d1c4e9",
+        "workTime": 480
+      },
+      {
+        "id": 7,
+        "title": "Night",
+        "color": "#9fa8da",
+        "workTime": 480
+      },
+      {
+        "id": 8,
+        "title": "Vacation",
+        "color": "transparent",
+        "workTime": 0
+      }
+    ]
+  },
+  "notes": {},
+  "emoji": {
+    "map": {},
+    "recents": [
+      "✈️",
+      "🚂",
+      "🚙",
+      "🥳",
+      "💊",
+      "🎁",
+      "🎥",
+      "⚽",
+      "💻"
+    ]
+  },
+  "user": {
+    "data": {},
+    "sync": false
+  },
+  "files": {},
+  "store": {
+    "products": [],
+    "subs": [],
+    "purchases": []
+  },
+  "purchases": {
+    "premium": false
+  },
+  "sale": {
+    "premium": true
+  },
+  "alarms": {
+    "settings": {
+      "warning": true,
+      "ongoingNotification": true,
+      "vibration": true,
+      "snoozeInterval": 1,
+      "volumeAction": "snooze"
+    },
+    "items": {}
+  },
+  "translation": {
+    "source": "en",
+    "target": "de",
+    "fixes": []
+  },
+  "_persist": {
+    "version": 15,
+    "rehydrated": true
+  }
+}
