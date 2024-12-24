@@ -25,7 +25,7 @@ class CustomBroadcastReceiver: BroadcastReceiver() {
 
       Log.d("CustomBroadcastReceiver", "Data from AsyncStorage: $json")
 
-      val fields = listOf("test", "income")
+      val fields = listOf("workShift", "userShifts")
       val filteredJSON = filterJSONByFields(json, fields)
 
       Log.d("CustomBroadcastReceiver", "Filtered data from AsyncStorage: $filteredJSON")
