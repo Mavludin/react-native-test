@@ -13,7 +13,7 @@ import {
   REGISTER,
 } from 'redux-persist';
 
-import userShift from './userShifts';
+import userShifts from './userShifts';
 import workShift from './workShift';
 import income from './income';
 
@@ -21,13 +21,13 @@ import income from './income';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['userShift', 'workShift', 'income'],
+  whitelist: ['userShifts', 'workShift', 'income'],
 };
 
 export const rootReducer = combineReducers({
   income,
   workShift,
-  userShift,
+  userShifts,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
