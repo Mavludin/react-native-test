@@ -33,6 +33,8 @@ import { PaperProvider } from 'react-native-paper';
 import { persistor, store } from './store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+const data = require('./data.json');
+
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
@@ -72,17 +74,7 @@ function App(): React.JSX.Element {
   };
 
   useEffect(() => {
-    const getData = async () => {
-      const storeString = await AsyncStorage.getItem('persist:root');
-
-      if (storeString === null) return
-
-      const data = JSON.parse(storeString);
-
-      console.log({ storeString: JSON.parse(data.test) });
-    };
-
-    getData();
+    AsyncStorage.setItem('persist:root', JSON.stringify(data));
   }, []);
 
   return (
