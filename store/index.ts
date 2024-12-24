@@ -14,19 +14,19 @@ import {
 } from 'redux-persist';
 
 import test from './test';
-import shifts from './shifts';
+import workShift from './workShift';
 import income from './income';
 
 // Persist Config
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['test', 'shifts', 'income'],
+  whitelist: ['test', 'workShift', 'income'],
 };
 
 export const rootReducer = combineReducers({
   income,
-  shifts,
+  workShift,
   test,
 });
 
