@@ -49,16 +49,16 @@ class CustomBroadcastReceiver: BroadcastReceiver() {
       database = SQLiteDatabase.openDatabase(databasePath, null, SQLiteDatabase.OPEN_READONLY)
 
       val cursor = database.rawQuery("SELECT value FROM catalystLocalStorage WHERE key = ?", arrayOf("persist:root"))
-      var value: String? = null
+      var json: String? = null
 
       if (cursor.moveToFirst()) {
-        value = cursor.getString(0)
+        json = cursor.getString(0)
       }
 
       cursor.close()
       database.close()
 
-      return value
+      return json
     } catch (e: Exception) {
       Log.e("AsyncStorageReader", "Error reading from AsyncStorage database", e)
 
