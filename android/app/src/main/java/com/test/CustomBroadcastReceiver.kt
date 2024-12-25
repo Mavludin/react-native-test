@@ -45,7 +45,7 @@ class CustomBroadcastReceiver: BroadcastReceiver() {
     val databasePath = context.getDatabasePath("RKStorage").absolutePath
     val database: SQLiteDatabase
 
-    try {
+    return try {
       database = SQLiteDatabase.openDatabase(databasePath, null, SQLiteDatabase.OPEN_READONLY)
 
       val cursor = database.rawQuery("SELECT value FROM catalystLocalStorage WHERE key = ?", arrayOf("persist:root"))
@@ -58,11 +58,11 @@ class CustomBroadcastReceiver: BroadcastReceiver() {
       cursor.close()
       database.close()
 
-      return json
+      json
     } catch (e: Exception) {
       Log.e("AsyncStorageReader", "Error reading from AsyncStorage database", e)
 
-      return null
+      null
     }
   }
 
