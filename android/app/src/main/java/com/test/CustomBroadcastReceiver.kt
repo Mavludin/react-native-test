@@ -18,24 +18,21 @@ class CustomBroadcastReceiver: BroadcastReceiver() {
     val action = intent.action
     val data = intent?.getStringExtra("data")
 
-    if (action == "com.test.SEND_DATA_REQUEST") {
+    if (action == Settings.sendDataRequestAction) {
       Log.d("CustomBroadcastReceiver", "Received broadcast with action: $action and data: $data")
 
       val json = getDataFromAsyncStorage(context)
 
       Log.d("CustomBroadcastReceiver", "Data from AsyncStorage: $json")
 
-      val fields = listOf("workShift", "userShifts", "settings")
-      val filteredJSON = filterJSONByFields(json, fields)
+      val filteredJSON = filterJSONByFields(json, Settings.allowedFields)
 
       Log.d("CustomBroadcastReceiver", "Filtered data from AsyncStorage: $filteredJSON")
 
-      val senderAction = "com.nextshift.SEND_DATA"
-
       // Отправка данных обратно через broadcast
-      val intent = Intent(senderAction).apply {
+      val intent = Intent(Settings.sendDataAction).apply {
         putExtra("data", filteredJSON)
-        setPackage("com.nextshift")
+        setPackage(Settings.nextshiftPackage)
       }
 
       context.sendBroadcast(intent)
@@ -83,6 +80,7 @@ class CustomBroadcastReceiver: BroadcastReceiver() {
       filteredObject.toString()
     } catch (e: Exception) {
       e.printStackTrace()
+  
       null
     }
   }
