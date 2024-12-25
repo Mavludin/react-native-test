@@ -16,7 +16,7 @@ import android.util.Log
 class CustomBroadcastReceiver: BroadcastReceiver() {
   override fun onReceive(context: Context, intent: Intent) {
     val action = intent.action
-    val data = intent?.getStringExtra("data") ?: "default_data"
+    val data = intent?.getStringExtra("data")
 
     if (action == "com.test.SEND_DATA_REQUEST") {
       Log.d("CustomBroadcastReceiver", "Received broadcast with action: $action and data: $data")
