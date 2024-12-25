@@ -3,7 +3,7 @@
     "language": "en"
   },
   "settings": {
-    "theme": "default",
+    "dark": true,
     "weekNumbers": "none",
     "firstDayOfWeek": 7,
     "aspectRatioMultiplier": 1,
