@@ -9,8 +9,6 @@ import org.json.JSONObject
 
 import android.database.sqlite.SQLiteDatabase
 
-import com.facebook.react.HeadlessJsTaskService
-
 import android.util.Log
 
 class CustomBroadcastReceiver: BroadcastReceiver() {
