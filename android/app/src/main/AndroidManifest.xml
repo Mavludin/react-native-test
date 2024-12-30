@@ -27,7 +27,7 @@
       </activity>
 
       <receiver
-        android:name=".CustomBroadcastReceiver"
+        android:name=".DataBroadcastReceiver"
         android:exported="true"
         android:enabled="true"
       >

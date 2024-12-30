@@ -2,8 +2,6 @@ package com.test
 
 import android.content.BroadcastReceiver
 import android.content.Context
-import android.os.Bundle
-import android.os.Build
 import android.content.Intent
 import org.json.JSONObject
 
@@ -11,21 +9,21 @@ import android.database.sqlite.SQLiteDatabase
 
 import android.util.Log
 
-class CustomBroadcastReceiver: BroadcastReceiver() {
+class DataBroadcastReceiver: BroadcastReceiver() {
   override fun onReceive(context: Context, intent: Intent) {
     val action = intent.action
     val data = intent?.getStringExtra("data")
 
     if (action == Settings.sendDataRequestAction) {
-      Log.d("CustomBroadcastReceiver", "Received broadcast with action: $action and data: $data")
+      Log.d("DataBroadcastReceiver", "Received broadcast with action: $action and data: $data")
 
       val json = getDataFromAsyncStorage(context)
 
-      Log.d("CustomBroadcastReceiver", "Data from AsyncStorage: $json")
+      Log.d("DataBroadcastReceiver", "Data from AsyncStorage: $json")
 
       val filteredJSON = filterJSONByFields(json, Settings.allowedFields)
 
-      Log.d("CustomBroadcastReceiver", "Filtered data from AsyncStorage: $filteredJSON")
+      Log.d("DataBroadcastReceiver", "Filtered data from AsyncStorage: $filteredJSON")
 
       // Отправка данных обратно через broadcast
       val intent = Intent(Settings.sendDataAction).apply {
@@ -35,7 +33,7 @@ class CustomBroadcastReceiver: BroadcastReceiver() {
 
       context.sendBroadcast(intent)
 
-      Log.d("CustomBroadcastReceiver", "Broadcast response sent")
+      Log.d("DataBroadcastReceiver", "Broadcast response sent")
     }
   }
 

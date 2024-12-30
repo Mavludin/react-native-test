@@ -14,11 +14,11 @@ import android.content.IntentFilter
 
 import android.util.Log
 
-import com.test.CustomBroadcastReceiver
+import com.test.DataBroadcastReceiver
 
 class MainActivity : ReactActivity() {
 
-  private val broadcastReceiver = CustomBroadcastReceiver()
+  private val broadcastReceiver = DataBroadcastReceiver()
 
   /**
    * Returns the name of the main component registered from JavaScript. This is used to schedule
