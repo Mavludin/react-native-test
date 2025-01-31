@@ -14,11 +14,7 @@ import android.content.IntentFilter
 
 import android.util.Log
 
-import com.test.DataBroadcastReceiver
-
 class MainActivity : ReactActivity() {
-
-  private val broadcastReceiver = DataBroadcastReceiver()
 
   /**
    * Returns the name of the main component registered from JavaScript. This is used to schedule
@@ -35,14 +31,5 @@ class MainActivity : ReactActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-
-    val intentFilter = IntentFilter("com.test.SEND_DATA_REQUEST")
-    registerReceiver(broadcastReceiver, intentFilter, Context.RECEIVER_EXPORTED)
-  }
-
-  override fun onDestroy() {
-    super.onDestroy()
-
-    unregisterReceiver(broadcastReceiver)
   }
 }
